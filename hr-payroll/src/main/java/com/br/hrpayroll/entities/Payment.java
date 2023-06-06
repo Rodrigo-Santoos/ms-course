@@ -15,7 +15,6 @@ public class Payment implements Serializable {
 	//constructs
 	
 	public Payment() {
-		
 	}
 
 	public Payment(String name, Double dailyIncome, Integer days) {

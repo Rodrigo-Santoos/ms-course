@@ -26,8 +26,8 @@ public class WorkerResource {
 	 //trazendo todos que estao no banco de dados
 	@GetMapping
 	public ResponseEntity<List<Worker>> findAll(){
-		List<Worker> listWorker = repository.findAll();
-		return ResponseEntity.ok(listWorker); 
+		List<Worker> listWorkers = repository.findAll();
+		return ResponseEntity.ok(listWorkers); 
 	}
 	
 	 //trazendo pelo ID
