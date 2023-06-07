@@ -10,21 +10,30 @@ import org.springframework.web.client.RestTemplate;
 
 import com.br.hrpayroll.entities.Payment;
 import com.br.hrpayroll.entities.Worker;
+import com.br.hrpayroll.feighclients.WorkerFeignClient;
 
 @Service
 public class PaymentService {
 
-	@Value("${hr-worker.host}") //pegando da propriedade criada no application.properties
+	//como esta usando a interface WorkerFeignClient nao precisa desses valores
+	
+	/*@Value("${hr-worker.host}") //pegando da propriedade criada no application.properties
 	private String workerHost;
 	
 	@Autowired
-	private RestTemplate restTemplate;
+	private RestTemplate restTemplate;*/
+	
+	//----------------------------------------------------------------------------------
+	@Autowired
+	private WorkerFeignClient workerFeignClient;
 	
 	public Payment getPayment(long workerId, int days) {
-		Map<String, String> uriVariables = new HashMap<>();
+		//codigo do restTemplate
+		/*Map<String, String> uriVariables = new HashMap<>();
 		uriVariables.put("id",""+workerId);
+		Worker worker = restTemplate.getForObject(workerHost + "/workers/{id}", Worker.class, uriVariables);*/
 		
-		Worker worker = restTemplate.getForObject(workerHost + "/workers/{id}", Worker.class, uriVariables);
+		Worker worker = workerFeignClient.findById(workerId).getBody();
 		return new Payment(worker.getName(), worker.getDailyIncome(), days);
 	}
 	
